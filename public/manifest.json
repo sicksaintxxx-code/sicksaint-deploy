@@ -1,0 +1,16 @@
+{
+  "name": "SICKSAINT — The World, Without The Noise",
+  "short_name": "SICKSAINT",
+  "description": "An independent international digital editorial publication covering global statecraft, sovereign compute enclaves, capital, and tactile culture.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#080808",
+  "theme_color": "#080808",
+  "icons": [
+    {
+      "src": "/favicon.ico",
+      "sizes": "any",
+      "type": "image/x-icon"
+    }
+  ]
+}

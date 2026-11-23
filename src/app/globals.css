@@ -1,0 +1,235 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --bg-page: #08090D;
+    --bg-surface: #101219;
+    --bg-card: #141720;
+    --text-primary: #E8E8EC;
+    --text-secondary: #9699A6;
+    --border-color: #292C36;
+    --accent: #A31F3D;
+    --accent-hover: #C22B4C;
+    --paper: #D9D7DC;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    background-color: #08090D;
+    color: #E8E8EC;
+  }
+
+  body {
+    background-color: #08090D;
+    color: #E8E8EC;
+    font-family: Inter, "Helvetica Neue", Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+  }
+
+  ::selection {
+    background-color: #A31F3D;
+    color: #E8E8EC;
+  }
+}
+
+/* Low-cost ambient movement keeps the interface alive without layout shifts. */
+body::before {
+  content: "";
+  position: fixed;
+  inset: -18%;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse at 18% 22%, rgba(119, 24, 53, 0.11), transparent 34%),
+    radial-gradient(ellipse at 82% 78%, rgba(107, 118, 151, 0.075), transparent 36%);
+  animation: ambient-drift 24s ease-in-out infinite alternate;
+}
+
+body > * { position: relative; z-index: 1; }
+
+@keyframes ambient-drift {
+  from { transform: translate3d(-1.5%, -1%, 0) scale(1); }
+  to { transform: translate3d(1.5%, 1%, 0) scale(1.04); }
+}
+
+@keyframes chrome-glint {
+  0%, 72%, 100% { background-position: 100% 50%; }
+  84% { background-position: 0% 50%; }
+}
+
+.masthead-chrome {
+  background-size: 220% 100%;
+  animation: chrome-glint 9s ease-in-out infinite;
+}
+
+.animate-signal-pulse { animation: signal-pulse 2.8s ease-in-out infinite; }
+
+@keyframes signal-pulse {
+  0%, 100% { opacity: .55; box-shadow: 0 0 0 0 rgba(194, 43, 76, 0); }
+  50% { opacity: 1; box-shadow: 0 0 10px 2px rgba(194, 43, 76, .36); }
+}
+
+.editorial-image-zoom { transition: transform .65s cubic-bezier(.2,.7,.2,1), filter .4s ease; }
+.group:hover .editorial-image-zoom { transform: scale(1.035); }
+article.group { transition: border-color .3s ease, transform .35s ease, box-shadow .35s ease; }
+article.group:hover { transform: translateY(-2px); box-shadow: 0 16px 48px rgba(0, 0, 0, .24); }
+
+.editorial-placeholder::after {
+  content: "";
+  position: absolute;
+  inset: -20% auto -20% -45%;
+  width: 35%;
+  transform: skewX(-18deg);
+  background: linear-gradient(90deg, transparent, rgba(208, 211, 226, .055), transparent);
+  animation: placeholder-glint 8s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes placeholder-glint {
+  0%, 55% { left: -45%; }
+  80%, 100% { left: 125%; }
+}
+
+/* ─── 1990s Editorial Typography ───────────────────────────── */
+
+/* Drop cap for article intro paragraphs */
+.drop-cap::first-letter,
+.editorial-drop-cap::first-letter {
+  float: left;
+  font-family: "Bodoni Moda", "Cormorant Garamond", "Playfair Display", Georgia, serif;
+  font-size: 5rem;
+  line-height: 0.75;
+  padding-top: 4px;
+  padding-right: 14px;
+  padding-bottom: 0;
+  font-weight: 700;
+  color: #C22B4C;
+  text-transform: uppercase;
+}
+
+/* Prose body for editorial articles */
+.prose-editorial {
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: 1.1875rem;
+  line-height: 1.8;
+  color: #E8E8EC;
+  max-width: 65ch;
+}
+
+.prose-editorial p {
+  margin-bottom: 1.6em;
+}
+
+.prose-editorial h2,
+.prose-editorial h3 {
+  font-family: "Bodoni Moda", "Playfair Display", Georgia, serif;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin-top: 2.5em;
+  margin-bottom: 0.8em;
+  color: #E8E8EC;
+}
+
+.prose-editorial em {
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-style: italic;
+  font-weight: 500;
+  color: #E8E8EC;
+}
+
+/* ─── Editorial Utility Classes ──────────────────────────── */
+
+/* 1px hairline editorial rule */
+.editorial-rule {
+  border: none;
+  border-top: 1px solid #292C36;
+  margin: 0;
+}
+
+/* Section kicker labels — condensed uppercase */
+.kicker-label {
+  font-family: Oswald, "Archivo Narrow", "Helvetica Condensed", sans-serif;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: #9699A6;
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+  .leading-editorial {
+    line-height: 1.15;
+  }
+}
+
+/* ─── Minimal Scrollbar ──────────────────────────────────── */
+::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+::-webkit-scrollbar-track {
+  background: #08090D;
+}
+::-webkit-scrollbar-thumb {
+  background: #292C36;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #A31F3D;
+}
+
+/* ─── Continuous Marquee Ticker ───────────────────────────── */
+@keyframes tickerMarquee {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+.animate-marquee-continuous {
+  display: flex;
+  width: max-content;
+  animation: tickerMarquee 45s linear infinite;
+}
+
+.animate-marquee-continuous:hover {
+  animation-play-state: paused;
+}
+
+/* ─── Hairline Grid Dividers ─────────────────────────────── */
+.hairline-border {
+  border-color: #292C36;
+}
+
+/* ─── Top Reading Progress ───────────────────────────────── */
+#reading-progress-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 2px;
+  background: #C22B4C;
+  z-index: 100;
+  transition: width 0.1s ease-out;
+}
+
+/* ─── Image Treatments: natural color, restrained editorial motion ─ */
+.vintage-film-image {
+  filter: saturate(0.92) contrast(1.04);
+  transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1), filter 0.6s ease;
+}
+.group:hover .vintage-film-image {
+  transform: scale(1.025);
+  filter: saturate(1) contrast(1.06);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { scroll-behavior: auto !important; animation: none !important; transition-duration: 0.01ms !important; }
+}
